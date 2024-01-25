@@ -1,25 +1,12 @@
 import re
 
 token_patterns = [
+    ('STRING', r'\".*\"'),
     ('NUMERO', r'\d+(\.\d*)?'), 
-    ('MAIN', r'main'),
-    ('ARGS', r'args'), 
-    ('IF', r'if'), 
-    ('WHILE', r'while'), 
-    ('PRINT', r'print'), 
-    ('ID', r'[a-zA-Z_][a-zA-Z0-9_]*'), 
-    ('OPERADORES', r'(\>\=|\<\=|\!\=|\+\+|\-\-|\+|\-|\=|\>|\<|\!)'),
-    ('PARENTESIS_IZQ', r'\('), 
-    ('PARENTESIS_DER', r'\)'), 
-    ('LLAVE_IZQ', r'\{'), 
-    ('LLAVE_DER', r'\}'), 
-    ('PUNTO_Y_COMA', r';'), 
-    ('COMA', r','), 
-    ('FUNCION', r'func'), 
-    ('DO', r'do'),  
-    ('RETURN', r'return'),
-    ('COMILLA', r'\"'),
-    ('ASIGNACION', r'\:='),
+    ('PALABRA_RESERVADA', r'(if|func|while|print|True|False|return|main|do|args)'),
+    ('IDENTIFICADOR', r'[a-zA-Z_][a-zA-Z0-9_]*'), 
+    ('OPERADORES', r'(\>\=|\<\=|\!\=|\+\+|\-\-|\+|\-|\=|\>|\<|\!)'), 
+    ('SIMBOLOS', r'(\{|\}|\(|\)|\,|\;|\:|\=|\")'),
 ]
 
 def lexer(code):
@@ -33,6 +20,9 @@ def lexer(code):
                 code = code[len(value):].lstrip()
                 break
         else:
-            raise Exception("No se pudo analizar el código: {}".format(code))
+            # agrega a la lista algo como "Simbolo no reconocido: simbolo"
+            tokens.append(("Simbolo no reconocido", code[0]))
+            code = code[1:].lstrip()
+
     return tokens
 

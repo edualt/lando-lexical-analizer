@@ -14,26 +14,23 @@ def analizar_codigo():
     codigo_fuente = editArea.get("1.0", tk.END)
     print(codigo_fuente)
     
-    try:
-        tokens = lexer(codigo_fuente)
-    except Exception as e:
-        ventana_error = tk.Toplevel(root)
-        ventana_error.title("Error en el Análisis Léxico")
-
-        error_text = scrolledtext.ScrolledText(ventana_error, width=80, height=40)
-        error_text.pack()
-
-        error_text.insert(tk.END, "Error: {}".format(e))
-        return
+    tokens = lexer(codigo_fuente)
     
     ventana_resultados = tk.Toplevel(root)
     ventana_resultados.title("Resultados del Análisis Léxico")
 
-    resultado_text = scrolledtext.ScrolledText(ventana_resultados, width=40, height=20)
+    resultado_text = scrolledtext.ScrolledText(ventana_resultados, width=80, height=40)
     resultado_text.pack()
-
+    
+    tipos_vistos = set()
+    
     for token in tokens:
-        resultado_text.insert(tk.END, "Token: {}\t Valor: {}\n".format(token[0], token[1]))
+        tipo, valor = token
+        if tipo not in tipos_vistos:
+            valores = ','.join([v for t, v in tokens if t == tipo])
+            resultado_text.insert(tk.END, "{}: {}\n".format(tipo, valores))
+            tipos_vistos.add(tipo)
+            
 
 def changes(event=None):
     global previousText
