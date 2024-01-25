@@ -2,11 +2,18 @@ import re
 
 token_patterns = [
     ('STRING', r'\".*\"'),
-    ('NUMERO', r'\d+(\.\d*)?'), 
-    ('PALABRA_RESERVADA', r'(if|func|while|print|True|False|return|main|do|args)'),
-    ('IDENTIFICADOR', r'[a-zA-Z_][a-zA-Z0-9_]*'), 
-    ('OPERADORES', r'(\>\=|\<\=|\!\=|\+\+|\-\-|\+|\-|\=|\>|\<|\!)'), 
-    ('SIMBOLOS', r'(\{|\}|\(|\)|\,|\;|\:|\=|\")'),
+    ('NUMEROS', r'\d+(\.\d*)?'), 
+    ('PALABRAS RESERVADAS', r'(if|func|while|print|True|False|return|main|do|args)'),
+    ('ASIGNACION', r':='),
+    ('COMILLAS', r'\"'),
+    ('INCREMENTO', r'(\+\+)'),
+    ('DECREMENTO', r'(\-\-)'),
+    ('SIGNOS', r'(\+|\-|\*|\=|\>|\<|\!|\&|\:)'),
+    ('PARENTESIS', r'(\(|\))'),
+    ('LLAVES', r'(\{|\})'),
+    ('COMA', r'\,'),
+    ('PUNTO Y COMA', r'\;'),
+    ('IDENTIFICADOR', r'[a-zA-Z_][a-zA-Z0-9_]*'),
 ]
 
 def lexer(code):
