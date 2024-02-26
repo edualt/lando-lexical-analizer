@@ -1,0 +1,102 @@
+start: structures*
+structures: v | f | co | bu | pm | idv | lf | fm
+
+v: L v1 | L v2
+v1: r v2
+v2: SI v3
+v3: va PCC
+
+f: FU f1
+f1: nv f2
+f2: PA f3 | PA f4
+f3: pv f4
+f4: PC f5
+f5: BA f6
+f6: structures f7 | rv f8 | f8
+f7: rv f8
+f8: BC PCC
+
+co: IF co1
+co1: PA co2
+co2: pvc co3
+co3: PC co4
+co4: DO co5
+co5: BA co7
+co6: structures | co7
+co7: BC PCC
+
+bu: WH bu1
+bu1: PA bu2
+bu2: pvc bu3
+bu3: PC bu4
+bu4: DO bu5
+bu5: BA bu6
+bu6: structures bu7 | bu7
+bu7: BC PCC
+
+pm: PR pm1
+pm1: PA pm2
+pm2: nv pm3 | va pm3
+pm3: PC PCC
+
+idv: nv idv1
+idv1: INDN PCC
+
+lf: nv lf1
+lf1: PA lf2 | PA lf3
+lf2: pvv lf3
+lf3: PC PCC
+
+fm: FU fm1
+fm1: MA fm2
+fm2: PA fm3
+fm3: AR fm4
+fm4: PC fm5
+fm5: BA fm6
+fm6: structures fm7 | rv fm8 | fm8
+fm7: rv fm8
+fm8: BC PCC
+
+mn: N mn | N
+r: L r | N r | L | N
+va: CD va1 | CD CD | mn | mn va2 | B
+va1: r CD
+va2: P mn
+nv: L r | L
+pv: nv pv1 | nv
+pv1: C pv
+pvv: nv pvv1 | va pvv1 | nv | va
+pvv1: C pvv
+pvc: va pvc1 | nv pvc1
+pvc1: OC pvc2
+pvc2: va pvc3 | nv pvc3 | va | nv
+pvc3: OPC pvc
+rv: RT rv1
+rv1: va PCC | nv PCC
+
+L: "a".."z" | "A".."Z"
+N: "0".."9"
+B: "true" | "false"
+SI: ":="
+CD: "\""
+P: "."
+PCC: ";"
+C: ","
+FU: "func"
+PA: "("
+PC: ")"
+BA: "{"
+BC: "}"
+RT: "return"
+IF: "if"
+DO: "do"
+OC: ">" | "<" | "==" | "!=" | "<=" | ">="
+WH: "while"
+PR: "print"
+INDN:  "++" | "--"
+MA: "main"
+AR: "args"
+OPC: "||" | "&&"
+
+%import common.WS
+%ignore WS
